@@ -1,0 +1,128 @@
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+"source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+"set number
+"set number
+
+"set default folder
+cd d:/svn_intest/hw
+
+"set color
+"set nu!
+
+"colorscheme white_on_black 
+syntax enable
+syntax on
+""colorscheme slate
+colorscheme desert 
+
+""""""""""""""""""FONT""""""""""""""""""""""""
+" set courier_new font
+set guifont=Courier_New:h12:cANSI
+"set guifont=Bitstream\ Vera\ Sans\ Mono:h11
+"set guifont=Ubuntu\ Mono:h11
+"set guifont=DejaVu\ Sans\ Mono:h11
+set gfw=свт╡:h12:cGB2312
+" set default language 
+lan mes en
+" set utf-8 chinese
+set fileencodings=ucs-bom,utf-8,chinese
+""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""clip """""""""""""""""""""""""""
+set clipboard+=unnamed
+""""""""""""""""""""""""""""""""""""""""""
+
+" use spaces for tab
+set expandtab
+" set indent width 
+set shiftwidth=4
+"set soft tab stop
+set sts=4
+"set tabstop
+set tabstop=4
+"max widows when start
+au GUIEnter * simalt ~x
+"set nobackuP
+set nobackup
+set nowritebackup
+"great idea seach with case when use case
+set ignorecase smartcase
+"map f5 use current folder path
+map <F5> :execute "cd" expand("%:h")<CR>
+map <F11> :!start D:\appData\MYEXE\GVimWindow.exe<CR>
+" set cursorline highlighting just use set cursorline
+"hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+"toggle menu and toolbar
+set guioptions-=T
+set guioptions-=m 
+"map f2 toggle menu and toolbar
+map <silent> <F2> : if &guioptions =~# 'T' <Bar>
+        \set guioptions-=T <Bar>
+        \set guioptions-=m <Bar>
+    \else <bar>
+        \set guioptions+=T <Bar>
+        \set guioptions+=m <Bar>
+    \endif<CR>
+"max the window
+set go-=r
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ctags config
+set tags=tags;
+set autochdir
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"nerd_tree config
+map <F3> :NERDTreeMirror<CR>
+map <F3> :NERDTreeToggle<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" for vundle
+set nocompatible
+""filetype off
+filetype on
+"set rtp+=$VIM/vimfiles/bundle/vundle/
+"call vundle#rc()
+
+"Bundle 'gmarik/vundle'
+"vim-scripts repos
+"Bundle
+"Bundle 'ctrlp.vim'
+"Bundle 'AutoClose'
+"Bundle 'EasyMotion'
+"Bundle 'FencView.vim'
+"Bundle 'The-NERD-tree'
+"Bundle 'The-NERD-Commenter'
+"Bundle 'Valloric/YouCompleteMe'
+
+"use dos /r/n
+
+"""""""""""""""""""""""""""""""""
+"snipmate
+filetype plugin on
